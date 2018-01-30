@@ -57,6 +57,15 @@ router.post('/', function (req, res, next)
         return ;
     }
 
+    // Additional module 
+    var mod_add = require('./mod.'+ss[0]+'.js');
+    if (mod_add) {
+        mod_add[func](params, function(retjs) {
+            write_response(res, retjs);
+        });
+        return ;
+    }
+
     write_response(res, {result: false, errcode: 2, errmsg: 'not implement'});
 });
 
