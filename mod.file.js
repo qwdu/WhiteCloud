@@ -11,6 +11,7 @@ function get_file_info(ppath, filepath, filename)
         ret.time = st.mtime;
         ret.size = st.size;
         ret.isdir = st.isDirectory();
+        if (ret.isdir) ret.path = ret.path + '/';
         return ret;
     });
 }

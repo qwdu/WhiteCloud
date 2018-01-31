@@ -20,7 +20,7 @@ app.use(session({
 }));
 
 app.use('/api', require('./api'));
-//app.use('/upload', require('./upload'));
+app.use('/upload', require('./upload'));
 
 app.get('/public/:file(*)', function(req, res, next){
     var filePath = path.join(__dirname, 'public', req.params.file);
