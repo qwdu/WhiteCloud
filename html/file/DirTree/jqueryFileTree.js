@@ -28,9 +28,8 @@ if(jQuery) (function($){
 					return ext.toLowerCase();
 				}
 
-                function gen_ul(data) {
+                function gen_ul(obj) {
                     var sss = '<ul class="jqueryFileTree" style="display: none;">';
-                    var obj = eval('('+data+')');
                     $.each(obj.files, function(index, item){
 						if (item.isdir) {
                         sss = sss + '<li class="directory collapsed"><a href="#" rel="' + item.path + '">' + item.name + '</a></li>';

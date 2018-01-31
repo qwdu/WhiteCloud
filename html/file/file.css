@@ -10,12 +10,12 @@
 
 #filebox {background:#fff; width:100%; height:100%; overflow:hidden;}
 
-#filebox .btnbar {margin:0; padding:10px;border-bottom:1px solid #aaa;background:#f8f8f8;}
-#filebox .pathbar {width:100%;padding:6px 10px; font-size:16px; border-bottom:1px solid #aaa;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+#filebox .btnbar {margin:0; padding:10px;border-bottom:1px solid #ddd; }
+#filebox .pathbar {width:100%;padding:6px 10px; font-size:16px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 #filebox .pathbar a {cursor:pointer;}
 
 #filebox .filelistbox {margin:0; padding:0;}
-#filebox .filelistbox .titleline {height:30px; padding:6px 10px; border-bottom:1px solid #eaebf0; background:#f8f8f8;}
+#filebox .filelistbox .titleline {height:30px; padding:6px 10px; background:#f8f8f8;}
 #filebox .filelistbox ul {list-style:none; margin:0; padding:0; height:100%; overflow:auto;}
 #filebox .filelistbox ul .selected { background: #d6e9fc;}
 #filebox .filelistbox li:hover{background: #d6e9fc;}

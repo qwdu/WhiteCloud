@@ -27,14 +27,14 @@ function login(params, cb)
         };
         fs.writeFile(conf_file, JSON.stringify(conf, null, 4), 'utf8', (err) => {
             if (err) console.log("login error", err.toString());
-            cb({result: true, utype: conf.level, uname: params.username, uid: 0});
+            cb({result: true, utype: conf.level, uname: params.username, uid: 9999});
         });
         return ;
     }
 
     var conf = require(conf_file);
     if (hash_password(params.password) == conf.key) {
-        cb({result: true, utype: conf.level, uname: params.username, uid: 0});
+        cb({result: true, utype: conf.level, uname: params.username, uid: 9999});
         return ;
     }
 
@@ -106,7 +106,7 @@ function list(params, cb)
                 work.push( get_user_info(conf_path) );
             }
         });
-        return Promise(work);
+        return Promise.all(work);
     })
     .then ( users => {
         cb({result: true, users:users});

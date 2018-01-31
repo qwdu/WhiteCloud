@@ -27,6 +27,8 @@
             $('#filebox').css({"height": (h-10)+"px", "width": w+"px"});
         }
 
+        var g_uname = $.cookie('uname');
+
         $(document).ready(function(){
             update_page_size();
             fileui.init();
@@ -65,7 +67,7 @@
     </div>
 
     <div class="pathbar">
-        <span class="curpath"></span> &nbsp;&nbsp; 共<span class="filescount"></span>个文件
+        <span class="curpath"></span> &nbsp;&nbsp; <span class="filescount"></span>
     </div>
 
     <div class="filelistbox">

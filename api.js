@@ -47,7 +47,7 @@ router.post('/', function (req, res, next)
             return;
         }
         mod_user[func](params, function(retjs) {
-            if (func == 'login') {
+            if (func == 'login' && retjs.result) {
                 req.session.uid = retjs.uid;
                 req.session.uname = retjs.uname;
                 req.session.utype = retjs.utype;

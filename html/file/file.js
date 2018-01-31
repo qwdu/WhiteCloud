@@ -2,27 +2,27 @@
 var fileapi = {
     list: function(path, onlydir, callback) {
         var postData = {method:"file.listdir", params:{path:path, onlydir:onlydir}};
-        $.post('../api', postData, callback);
+        jpost('/api', postData, callback);
     },
 
     del: function(paths, callback) {
         var postData = {method:"file.remove", params:{path:paths}};
-        $.post('../api', postData, callback);
+        jpost('/api', postData, callback);
     },
 
     move: function(todir, patharr, callback) {
         var postData = {method:"file.move", params:{todir:todir, path:patharr}};
-        $.post('../api', postData, callback);
+        jpost('/api', postData, callback);
     },
 
     rename: function(path, newname, callback) {
         var postData = {method:"file.rename", params:{path:path, newname:newname}};
-        $.post('../api', postData, callback);
+        jpost('/api', postData, callback);
     },
 
     mkdir: function(path, newname, callback) {
         var postData = {method:"file.mkdir", params:{path:path, newname:newname}};
-        $.post('../api', postData, callback);
+        jpost('/api', postData, callback);
     },
 };
 
@@ -31,17 +31,6 @@ var fileutil = {
         var len = name.length - name.lastIndexOf(".") - 1;
         var ext = name.substr(name.lastIndexOf(".") + 1, len);
         return ext.toLowerCase();
-    },
-
-    format_date: function (unixtm) {
-        function pad(n){return (n<10 ? '0'+n : n);}
-        var d = new Date(unixtm * 1000);
-        return d.getFullYear()+'-'
-            + pad(d.getMonth()+1)+'-'
-            + pad(d.getDate())+' '
-            + pad(d.getHours())+':'
-            + pad(d.getMinutes())+':'
-            + pad(d.getSeconds());
     },
 
     format_time: function (unixtm) {
@@ -198,8 +187,7 @@ var fileobject = {
 
     get_files_path: function (path)
     {
-        fileapi.list(path, false, function(retjs){
-            var retobj = eval('('+retjs+')');
+        fileapi.list(path, false, function(retobj){
             if (retobj.result == false) {
                 return ;
             }
@@ -421,11 +409,11 @@ var fileui = {
             if (item != "") {
                 var cpath = "";
                 for (var j=0; j<=i; j++) cpath = cpath + patharray[j] + '/';
-                var sss = '<a onclick=\'fileobject.get_files_path("' + cpath + '");\'>' + item.toUpperCase() + '</a>' + pathdeli;
+                var sss = '<a onclick=\'fileobject.get_files_path("' + cpath + '");\'>' + item + '</a>' + pathdeli;
                 $('#filebox .pathbar .curpath').append(sss);
             } else {
                 if (i == 0) {
-                    var sss = '<a onclick=\'fileobject.get_files_path("/");\'>ROOT</a>' + pathdeli;
+                    var sss = '<a onclick=\'fileobject.get_files_path("/");\'>/</a>' + pathdeli;
                     $('#filebox .pathbar .curpath').append(sss);
                 }
             }
@@ -435,7 +423,7 @@ var fileui = {
     show_files: function (start, end)
     {
         fileui.show_path(fileobject.path);
-        $('#filebox .pathbar .filescount').html(fileobject.total);
+        //$('#filebox .pathbar .filescount').html(fileobject.total);
 
         if (fileui.listmode == "list")
         {
@@ -475,7 +463,7 @@ var fileui = {
         {
             var item    = fileobject.files[index];
             var sizestr = fileutil.format_size(item.size);
-            var namestr = '<a target="_blank" href="../uploads'+fileutil.myescape(item.path)+'">'+item.name+"</a>";
+            var namestr = '<a target="_blank" href="/home/'+g_uname+fileutil.myescape(item.path)+'">'+item.name+"</a>";
             if (item.isdir) {
                 sizestr = "-";
                 namestr = '<a href="javascript:;" onclick="fileobject.enter_dir_by_index('+index+');">' + item.name + '</a>';
@@ -484,7 +472,7 @@ var fileui = {
             var sss = '<li index='+index+'>' + 
             '<div class="box pull-left"><input type="checkbox" /></div>' + 
             '<div class="icon pull-left"><img src="' + fileicon.get_icon(item.name, item.isdir) + '"/></div>' +
-            '<div class="time pull-right">' + fileutil.format_date(item.time) + '</div>' +
+            '<div class="time pull-right">' + format_date(item.time) + '</div>' +
             '<div class="size pull-right">' + sizestr + '</div>' + 
             '<div class="name">' + namestr + '</div>' +
             '<div class="clearfix"></div></li>';
@@ -504,14 +492,14 @@ var fileui = {
                 foldera1 = '<a href="javascript:;" onclick="fileobject.enter_dir_by_index('+index+');">';
             }
             else {
-                foldera1 = '<a target="_blank" href="../uploads' + fileutil.myescape(item.path) + '">';
+                foldera1 = '<a target="_blank" href="/home/'+g_uname+fileutil.myescape(item.path) + '">';
             }
             var imgsrcname = 'src';
             var imgurl     = fileicon.get_icon(item.name, item.isdir);
             var ext = fileutil.file_ext(item.name);
             if(ext == "jpg" || ext == "png" || ext == "gif") {
                 imgsrcname = 'class="lazy" data-original';
-                imgurl     = '../uploads'+fileutil.myescape(item.path);
+                imgurl     = '/home/'+g_uname+fileutil.myescape(item.path);
             }
 
             var sss = '<li class="pull-left"  index='+index+' title="'+item.name+'">'+
@@ -585,10 +573,7 @@ var fileui = {
 
     show_dialog: function(divid) {
         var w = ($('#filebox').width() - $(''+divid).width()) / 2 + $('#filebox').position().left;
-        var h = ($('#filebox').height() - $(''+divid).height()) / 2 + $('#filebox').position().top;
-        if (h < 10) h = 10;
-        h = h + $(document).scrollTop();
-        $(''+divid).css({"display":"block", "position":"absolute", "top":h+"px", "left":w+"px"});
+        $(''+divid).css({"display":"block", "position":"fixed", "top":"120px", "left":w+"px"});
     },
 
     init_mkdir_dialog: function() {

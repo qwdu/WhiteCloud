@@ -22,7 +22,7 @@ function create_plupload() {
         max_file_size: '2048mb',
         chunk_size: '4mb',
         multipart_params : {savepath: ""},
-        url : '../upload',
+        url : '/upload',
         flash_swf_url : 'https://cdn.bootcss.com/plupload/1.5.8/plupload.flash.swf'
     });
 

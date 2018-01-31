@@ -1,7 +1,7 @@
 
 function logout() {
     jpost('api', {method:'user.logout', params:{}}, function() {
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
     });
 }
 
@@ -35,8 +35,9 @@ function jpost(u, d, cb) {
         dataType: "json",
         contentType : 'application/json',
         success: function (data) {
-            if (!data.resut && errcode == 1) {
-                window.location.href = 'login.html';
+            console.log(data);
+            if (!data.resut && data.errcode == 1) {
+                window.location.href = '/login.html';
                 return ;
             }
             if (cb) cb(data);

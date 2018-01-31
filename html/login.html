@@ -28,7 +28,7 @@
             jpost("api", {method:'user.login', params:{username:name, password:pass}}, function(res){
                 if (res.result) {
                     window.location.href = furl;
-                    $.cookie('user', JSON.stringify({uid:res.uid, uname:res.uname, utype:res.utype}));
+                    $.cookie('uname', res.uname);
                 } else { 
                     show_alert('error', res.errmsg);
                 }
