@@ -44,7 +44,7 @@ function login(params, cb)
 function create(params, cb)
 {
     if (params.session_utype != 'admin') {
-        cb({result: false, errcode: 1, errmsg: 'perm deny'});
+        cb({result: false, errcode: 13, errmsg: 'perm deny'});
         return ;
     }
 

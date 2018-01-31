@@ -11,6 +11,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'html')));
 
 app.use(session({
   resave: false,
@@ -61,3 +62,4 @@ app.use(function(err, req, res, next) {
 var server = http.createServer(app);
 server.listen(3000);
 
+console.log('server run port 3000 ...');

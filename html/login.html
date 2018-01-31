@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>WhiteCloud</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link  href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-noty/2.3.8/packaged/jquery.noty.packaged.min.js"></script>
+    <link  href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
+    <script src="util.js"></script>
+    <style>
+        body {background:#eee;}
+    </style>
+    <script>
+        var furl = $.url(true).param('furl');
+        if (typeof furl === 'undefined') furl = "index.html";
+
+        function do_login()
+        {
+            var name = $("#username").val();
+            var pass = $("#password").val();
+
+            jpost("api", {method:'user.login', params:{username:name, password:pass}}, function(res){
+                if (res.result) {
+                    window.location.href = furl;
+                } else { 
+                    show_alert('error', res.errmsg);
+                }
+            });
+        }
+
+        function init_login() {
+            $("#password").keyup(function(e){
+                if (e.keyCode == 13) do_login();
+            });
+
+            $('.btn-success').click(do_login);
+        }
+
+        $(document).ready(function(){
+            init_login();
+            var mtop = ($(document).height() - $('#loginbox').height() - 240) / 2;
+            if (mtop > 20) $('#loginbox').css("margin-top", mtop+"px");
+        });
+    </script>
+</head>
+<body> 
+
+   <div id="loginbox" class="modal-content" style="width:350px; padding:30px 30px 20px 30px; margin:20px auto 0 auto;">
+       <div><span style="font-size:24px;">WhiteCloud 登陆</span></div>
+       <div style="margin-top:30px"><input type="text" class="form-control" placeholder="Username" id="username"></div>
+       <div style="margin:30px 0 30px 0;"><input type="password" placeholder="Password" class="form-control" id="password"></div>
+       <button type="button" class="btn btn-success" style="width:100%;">登 录</button>
+   </div>
+
+</body>
+</html>
