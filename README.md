@@ -4,8 +4,7 @@
 3. $ npm install 
 
 # Run 
-1. set home and public dir
-2. $ node app.js
+修改 start.sh 并运行
 
 # API 
 1. POST 内容格式: json | form

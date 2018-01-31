@@ -1,0 +1,47 @@
+
+.modal-footer {padding: 5px 20px; margin-top: 0px;}
+.modal-header {padding: 5px 20px; margin-top: 0px;}
+
+#blackoverlay{display:none;z-index:1000;position:fixed;top:0;left:0;width:100%;height:100%;}
+#mkdirmodal {display:none; width:300px; z-index:1001;}
+#renamemodal {display:none; width:300px; z-index:1001;}
+#movemodal {display:none; width:400px; z-index:1001;}
+#movemodal .dirtree {height:180px; overflow:auto; margin:0; padding:0;}
+
+#filebox {background:#fff; width:100%; height:100%; overflow:hidden;}
+
+#filebox .btnbar {margin:0; padding:10px;border-bottom:1px solid #aaa;background:#f8f8f8;}
+#filebox .pathbar {width:100%;padding:6px 10px; font-size:16px; border-bottom:1px solid #aaa;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+#filebox .pathbar a {cursor:pointer;}
+
+#filebox .filelistbox {margin:0; padding:0;}
+#filebox .filelistbox .titleline {height:30px; padding:6px 10px; border-bottom:1px solid #eaebf0; background:#f8f8f8;}
+#filebox .filelistbox ul {list-style:none; margin:0; padding:0; height:100%; overflow:auto;}
+#filebox .filelistbox ul .selected { background: #d6e9fc;}
+#filebox .filelistbox li:hover{background: #d6e9fc;}
+#filebox .filelistbox li {height: 34px; padding:6px 10px; border-bottom:1px solid #eaebf0; overflow:hidden;}
+#filebox .filelistbox .icon img {width:20px; margin-right:10px;}
+#filebox .filelistbox .name {overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+#filebox .filelistbox .size {width:110px;margin-right:10px;}
+#filebox .filelistbox .time {width:150px;margin-right:10px;}
+
+#filebox .filegridbox {margin:0; padding:0;}
+#filebox .filegridbox ul {list-style-type:none; position:relative; margin:0; padding:0; overflow:auto;}
+#filebox .filegridbox li{width:212px; height:192px; margin:20px 18px 15px 30px;padding:2px;} 
+#filebox .filegridbox li img {max-height:166px;} 
+#filebox .filegridbox li .imgdiv {width:208px;height:166px;position:relative;text-align:center;overflow:hidden;}
+#filebox .filegridbox li .filename {height:24px;width:190px;font-size:14px;text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+#filebox .filegridbox .selected {border:2px solid #3091f2;padding:0px;}
+#filebox .filegridbox .selected .checkbox1{border-right:2px solid #3091f2;border-bottom:2px solid #3091f2;background:url(image/checked.png);}
+#filebox .filegridbox .selected:hover .checkbox1{border-right:2px solid #3091f2;border-bottom:2px solid #3091f2;background:url(image/checked.png);}
+#filebox .filegridbox li:hover{border:2px solid #3091f2;padding:0px;}
+#filebox .filegridbox li:hover .checkbox1{border-right:2px solid #3091f2;border-bottom:2px solid #3091f2;background:#fff;}
+
+#uploaderbox {display:none; z-index:80; padding:0; margin:0; width:500px; position:absolute; right:10px; bottom:5px;}
+#uploaderbox .speed {margin:4px 10px 0 0;}
+#uploaderbox .uploadprogress {height:24px; width:200px; margin:0; padding:0;}
+#uploaderbox .uploadlist {list-style:none; height:200px; margin:0; padding:0; overflow:auto;}
+#uploaderbox .uploadlist li {margin:0; padding:4px; border-bottom:1px solid #ddd;}
+#uploaderbox .uploadlist .upcancel {margin-left:10px; cursor:pointer;}
+

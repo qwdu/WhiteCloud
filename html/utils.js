@@ -1,4 +1,10 @@
 
+function logout() {
+    jpost('api', {method:'user.logout', params:{}}, function() {
+        window.location.href = 'login.html';
+    });
+}
+
 function show_alert(type, msg) {
     noty({
         type: type,
