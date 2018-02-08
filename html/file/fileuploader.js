@@ -20,7 +20,7 @@ function create_plupload() {
         browse_button : 'pickfiles',
         container : 'uploaderbox',
         max_file_size: '2048mb',
-        chunk_size: '4mb',
+        chunk_size: '20mb',
         multipart_params : {savepath: ""},
         url : '/upload',
         flash_swf_url : 'https://cdn.bootcss.com/plupload/1.5.8/plupload.flash.swf'

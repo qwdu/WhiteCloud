@@ -235,7 +235,7 @@ var fileobject = {
 };
 
 var fileui = {
-    listmode: "list",
+    listmode: "grid",
     selected: -1,
     dirtree_cur: '/',
     uploading: false,
@@ -394,6 +394,7 @@ var fileui = {
         var titleh = $('#filebox .titleline').outerHeight();
         var btnh = $('#filebox .btnbar').outerHeight();
         var pathh = $('#filebox .pathbar').outerHeight();
+        var pathh = 0;
         var uu = boxh - titleh - btnh - pathh;
         $("#filebox .filelistbox ul").css({"height": uu+"px"});
         var gg = boxh - btnh - pathh;
@@ -402,7 +403,7 @@ var fileui = {
 
     show_path: function(path)
     {
-        $('#filebox .pathbar .curpath').empty();
+        $('#filebox .curpath').empty();
         var patharray = path.split('/');
         var pathdeli = '&nbsp;&gt;&nbsp;';
         $.each(patharray, function(i, item) {
@@ -410,11 +411,11 @@ var fileui = {
                 var cpath = "";
                 for (var j=0; j<=i; j++) cpath = cpath + patharray[j] + '/';
                 var sss = '<a onclick=\'fileobject.get_files_path("' + cpath + '");\'>' + item + '</a>' + pathdeli;
-                $('#filebox .pathbar .curpath').append(sss);
+                $('#filebox .curpath').append(sss);
             } else {
                 if (i == 0) {
                     var sss = '<a onclick=\'fileobject.get_files_path("/");\'>/</a>' + pathdeli;
-                    $('#filebox .pathbar .curpath').append(sss);
+                    $('#filebox .curpath').append(sss);
                 }
             }
         });
@@ -423,7 +424,7 @@ var fileui = {
     show_files: function (start, end)
     {
         fileui.show_path(fileobject.path);
-        //$('#filebox .pathbar .filescount').html(fileobject.total);
+        //$('#filebox .filescount').html(fileobject.total);
 
         if (fileui.listmode == "list")
         {

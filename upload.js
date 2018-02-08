@@ -50,24 +50,25 @@ router.post('/', upload_tmp.any(), function(req, res, next){
     var opt = {flags: 'w'};
     if (params.chunk > 0) opt = {flags: 'a'};
     var ws = fs.createWriteStream(tmp_path, opt);
-    ws.write(fileobj.buffer);
-    ws.end();
-
-    if ((parseInt(params.chunk)+1) < parseInt(params.chunks)) {
-        write_response(res, {result: true});
-        return ;
-    }
-
-    var saveto = 'home/' + req.session.uname + params.savepath + params.name;
-    if (fs.existsSync(saveto)) saveto = saveto + '.' + Date.now();
-
-    return fs.rename(tmp_path, saveto)
-    .then( () => {
-        write_response(res, {result: true});
-    })
-    .catch( err => {
-        console.log("upload error", err.toString());
-        cb({result: false, errcode: 500, errmsg: err.toString()});
+    ws.write(fileobj.buffer, () => {
+        ws.end(() => {
+            if ((parseInt(params.chunk)+1) < parseInt(params.chunks)) {
+                write_response(res, {result: true});
+                return ;
+            }
+  
+            var saveto = 'home/' + req.session.uname + params.savepath + params.name;
+            if (fs.existsSync(saveto)) saveto = saveto + '.' + Date.now();
+  
+            return fs.rename(tmp_path, saveto)
+            .then( () => {
+                write_response(res, {result: true});
+            })
+            .catch( err => {
+                console.log("upload error", err.toString());
+                cb({result: false, errcode: 500, errmsg: err.toString()});
+            });
+        });
     });
 });
 

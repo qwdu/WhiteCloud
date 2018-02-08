@@ -6,8 +6,9 @@ DATA_PATH_TMP="/storage/tmp"
 
 echo "data home = " $DATA_PATH_HOME
 echo "data public = " $DATA_PATH_PUBLIC
-echo "data tmp = " $DATA_PATH_TMP_
+echo "data tmp = " $DATA_PATH_TMP
 
+rm -f home public tmp
 ln -sf $DATA_PATH_HOME home
 ln -sf $DATA_PATH_PUBLIC public
 ln -sf $DATA_PATH_TMP tmp
