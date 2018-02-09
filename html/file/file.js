@@ -517,12 +517,12 @@ var fileui = {
     grid_img_onload: function(who) {
         if (who.height == 1) return ;
 
-        if (who.height <166 ) {
-            var v = (166 - who.height) / 2;
+        if (who.height <116 ) {
+            var v = (116 - who.height) / 2;
             who.style.marginTop = v + 'px';
         }
-        if (who.width > 210) {
-            var v = (who.width - 210) / 2;
+        if (who.width > 160) {
+            var v = (who.width - 160) / 2;
             who.style.marginLeft = '-' + v + 'px';
         }
     },

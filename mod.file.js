@@ -59,9 +59,25 @@ function mkdir(params, cb)
     });
 }
 
+function remove(params, cb)
+{
+    //TODO
+}
+
+function rename(params, cb)
+{
+    //TODO
+}
+
+function move(params, cb)
+{
+    //TODO
+}
+
 exports.listdir = listdir;
-//exports.remove = remove;
-//exports.rename = rename;
-//exports.move = move;
+exports.listdir = listdir;
 exports.mkdir = mkdir;
+exports.remove = remove;
+exports.rename = rename;
+exports.move = move;
 

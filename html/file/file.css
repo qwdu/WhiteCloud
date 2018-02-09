@@ -27,10 +27,10 @@
 
 #filebox .filegridbox {margin:0; padding:0;}
 #filebox .filegridbox ul {list-style-type:none; position:relative; margin:0; padding:0; overflow:auto;}
-#filebox .filegridbox li{width:212px; height:192px; margin:20px 18px 15px 30px;padding:2px; border:1px solid #eee;} 
-#filebox .filegridbox li img {max-height:166px;} 
-#filebox .filegridbox li .imgdiv {width:208px;height:166px;position:relative;text-align:center;overflow:hidden;}
-#filebox .filegridbox li .filename {height:24px;width:190px;font-size:14px;text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+#filebox .filegridbox li{width:162px; height:142px; margin:20px 0 0 20px;padding:2px; border:1px solid #eee;} 
+#filebox .filegridbox li img {max-height:116px;} 
+#filebox .filegridbox li .imgdiv {width:158px;height:116px;position:relative;text-align:center;overflow:hidden;}
+#filebox .filegridbox li .filename {height:24px;width:144px;font-size:14px;text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 
 #filebox .filegridbox .selected {border:2px solid #3091f2;padding:0px;}
 #filebox .filegridbox .selected .checkbox1{border-right:2px solid #3091f2;border-bottom:2px solid #3091f2;background:url(image/checked.png);}
