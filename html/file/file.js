@@ -403,7 +403,7 @@ var fileui = {
 
     show_path: function(path)
     {
-        $('#filebox .curpath').empty();
+        $('.curpath').empty();
         var patharray = path.split('/');
         var pathdeli = '&nbsp;&gt;&nbsp;';
         $.each(patharray, function(i, item) {
@@ -411,11 +411,11 @@ var fileui = {
                 var cpath = "";
                 for (var j=0; j<=i; j++) cpath = cpath + patharray[j] + '/';
                 var sss = '<a onclick=\'fileobject.get_files_path("' + cpath + '");\'>' + item + '</a>' + pathdeli;
-                $('#filebox .curpath').append(sss);
+                $('.curpath').append(sss);
             } else {
                 if (i == 0) {
-                    var sss = '<a onclick=\'fileobject.get_files_path("/");\'>/</a>' + pathdeli;
-                    $('#filebox .curpath').append(sss);
+                    var sss = '<a onclick=\'fileobject.get_files_path("/");\'>文件管理器</a>' + pathdeli;
+                    $('.curpath').append(sss);
                 }
             }
         });

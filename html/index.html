@@ -6,22 +6,52 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>WhiteCloud</title>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link  href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="https://cdn.bootcss.com/jquery-noty/2.3.8/packaged/jquery.noty.packaged.min.js"></script>
-<link  href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
 <script src="utils.js"></script>
 <style>
-    body {background:#eee;}
+    body {background:url(bg.jpg) no-repeat; background-size:100% 100%; background-attachment:fixed;font-family:"Microsoft Yahei";}
+    .xxbox {width:900px; margin:auto;}
+    .navitem {float:left; width:200px; height:160px; margin:10px 10px 10px 0; background:#39f; color:#fff; cursor:pointer;}
+    .navtext {margin-top:60px; text-align:center; font-size:20px;}
 </style>
 </head>
 <body> 
 
-<div class="text-center">
-    <h1>欢迎使用 白云 NAS 系统</h1>
-    <br/><br/><br/>
-    <a href="file/">我的文件</a>
+<div id="welcome" class="xxbox">
+    <br/>
+    <h1 style="color:#fff;">欢迎使用 白云 NAS 系统</h1>
+    <br/>
 </div>
+
+<div id="nav" class="xxbox">
+    <div class="navitem" url="file/" >
+        <div class="navtext">文件管理</div>
+    </div>
+    <div class="navitem">
+        <div class="navtext">用户管理</div>
+    </div>
+    <div class="navitem">
+        <div class="navtext">BT下载</div>
+    </div>
+    <div class="navitem">
+        <div class="navtext">远程同步</div>
+    </div>
+    <div class="navitem">
+        <div class="navtext">联网设置</div>
+    </div>
+    <div class="navitem">
+        <div class="navtext">系统配置</div>
+    </div>
+    <div class="navitem">
+        <div class="navtext">硬盘配置</div>
+    </div>
+</div>
+
+<script>
+$('.navitem').click(function(){
+    var url = $(this).attr('url');
+    window.location.href = url;
+});
+</script>
 
 </body>
 </html>
