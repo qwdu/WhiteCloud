@@ -506,13 +506,10 @@ var fileui = {
                 imgsrcname = 'class="lazy" data-original';
                 imgurl     = fileapi.rootdir + fileutil.myescape(item.path);
             }
-            var show_name = item.name;
-            if (show_name == 'home') show_name = '私人文件夹';
-
             var sss = '<li class="pull-left"  index='+index+' title="'+item.name+'">'+
                 '<div class="imgdiv">'+foldera1+'<img onload="fileui.grid_img_onload(this)" '+imgsrcname+'="'+imgurl+'"/>'+foldera2+ 
                 '<div class="checkbox1" style ="width:18px;height:18px;display:block;position:absolute;left:0px;top:0px;cursor:pointer;"></div></div>'+ 
-                '<div class="filename">' + show_name + '</div>' +
+                '<div class="filename">' + item.name + '</div>' +
                 '<div class="clearfix"></div>' +
                 '</li>';
 

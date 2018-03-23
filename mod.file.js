@@ -1,6 +1,7 @@
 
 var path = require('path');
 var fs = require('fs-extra');
+var rimraf = require('rimraf');
 var Promise = require("bluebird");
 
 function get_file_info(params, ppath, filepath, filename)
@@ -13,20 +14,28 @@ function get_file_info(params, ppath, filepath, filename)
         ret.isdir = st.isDirectory();
         if (ret.isdir) {
             ret.path = ret.path + '/';
-            if (ret.path == '/home/') ret.path = ret.path + params.session_uname + '/';
+            if (ret.path == '/home/') {
+                ret.path = ret.path + params.session_uname + '/';
+                ret.name = '私人文件夹';
+            }
         }
         return ret;
     });
 }
 
+function check_home(params, path)
+{
+    if ('/home' != path.substr(0, 5)) return true;
+    var home_prefix = '/home/' + params.session_uname;
+    if (home_prefix != path.substr(0, home_prefix.length)) return false;
+    return true;
+}
+
 function listdir(params, cb)
 {
-    if ('/home' == params.path.substr(0, 5)) {
-        var home_prefix = '/home/' + params.session_uname;
-        if (home_prefix != params.path.substr(0, home_prefix.length)) {
-            cb({result: false, errcode: 13, errmsg: 'perm deny'});
-            return ;
-        }
+    if ('/home/' == params.path || !check_home(params, params.path)) {
+        cb({result: false, errcode: 13, errmsg: 'perm deny'});
+        return ;
     }
 
     var rpath = 'storage' + params.path;
@@ -72,13 +81,12 @@ function mkdir(params, cb)
 
 function remove(params, cb)
 {
-    var home_prefix = '/home/' + params.session_uname;
-
     var work = [];
     for(var i = 0 ; i < params.path.length ; i++ ) {
-        if (home_prefix != params.path[i].substr(0, home_prefix.length)) {
-            work.push( fs.unlink('storage' + params.path[i]) );
-        }
+        if (params.path[i] == '/home/') continue;
+        if (params.path[i] == '/home/' + params.session_uname + '/') continue;
+        if (!check_home(params, params.path[i])) continue;
+        work.push( rimraf('storage' + params.path[i], function(){}) );
     }
     if (work.length == 0) {
         cb({result:true});
@@ -97,13 +105,16 @@ function remove(params, cb)
 
 function rename(params, cb)
 {
-    var home_prefix = '/home/' + params.session_uname;
-    if (home_prefix == params.path.substr(0, home_prefix.length)) {
+    var home_prefix = '/home/' + params.session_uname + '/';
+    if ('/home/' == params.path || home_prefix == params.path || !check_home(params, params.path)) {
         cb({result: false, errcode: 13, errmsg: 'perm deny'});
         return ;
     }
 
-    return fs.rename('storage' + params.path, 'storage' + path.dirname(params.path) + '/' + params.newname)
+    var f1 = 'storage' + params.path;
+    var f2 = 'storage' + path.dirname(params.path) + '/' + params.newname;
+    console.log(f1 + ' -> ' + f2);
+    return fs.rename(f1, f2)
     .then( xx => {
         cb({result:true});
     })
@@ -115,16 +126,15 @@ function rename(params, cb)
 
 function move(params, cb)
 {
-    var home_prefix = '/home/' + params.session_uname;
-
     var work = [];
     for(var i = 0 ; i < params.path.length ; i++ ) {
-        if ('/home' != params.path[i] && home_prefix != params.path[i]) {
-            var f1 = 'storage' + params.path[i];
-            var f2 = 'storage' + params.todir + path.basename(params.path[i]);
-            console.log(f1 + ' -> ' + f2);
-            work.push( fs.rename(f1, f2) );
-        }
+        if (params.path[i] == '/home/') continue;
+        if (params.path[i] == '/home/' + params.session_uname + '/') continue;
+        if (!check_home(params, params.path[i])) continue;
+        var f1 = 'storage' + params.path[i];
+        var f2 = 'storage' + params.todir + path.basename(params.path[i]);
+        console.log(f1 + ' -> ' + f2);
+        work.push( fs.rename(f1, f2) );
     }
     if (work.length == 0) {
         cb({result:true});
@@ -141,10 +151,15 @@ function move(params, cb)
     });
 }
 
+function search(params, cb)
+{
+}
+
 exports.listdir = listdir;
 exports.listdir = listdir;
 exports.mkdir = mkdir;
 exports.remove = remove;
 exports.rename = rename;
 exports.move = move;
+exports.search = search;
 

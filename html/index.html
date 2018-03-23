@@ -13,13 +13,20 @@
     .navitem {float:left; width:200px; height:160px; margin:10px 10px 10px 0; background:#39f; color:#fff; cursor:pointer;}
     .navitem-da {background:#f5f5f5;}
     .navtext {margin-top:60px; text-align:center; font-size:20px;}
+
+    @media screen and (max-width: 767px) {
+        .xxbox {width:100%;}
+        .navitem {width:47%;}
+        .navitem:nth-child(2n+1){margin:10px 0 0 2%; float:left;}
+        .navitem:nth-child(2n){margin:10px 2% 0 0; float:right;}
+    }
 </style>
 </head>
 <body> 
 
 <div id="welcome" class="xxbox">
     <br/>
-    <h1 style="color:#fff;">欢迎使用 白云 NAS 系统</h1>
+    <h1 style="color:#fff;">欢迎使用 白云NAS</h1>
     <br/>
 </div>
 
