@@ -1,18 +1,13 @@
 #!/bin/sh
 
-DATA_PATH_HOME="/storage/home"
-DATA_PATH_PUBLIC="/storage/public"
-DATA_PATH_TMP="/storage/tmp"
+DATA_PATH="/storage"
+echo "data path = " $DATA_PATH
 
-echo "data home = " $DATA_PATH_HOME
-echo "data public = " $DATA_PATH_PUBLIC
-echo "data tmp = " $DATA_PATH_TMP
+rm -f storage
+ln -sf $DATA_PATH storage
 
-rm -f home public tmp
-ln -sf $DATA_PATH_HOME home
-ln -sf $DATA_PATH_PUBLIC public
-ln -sf $DATA_PATH_TMP tmp
-
-mkdir -p home/admin
+mkdir -p storage/tmp
+mkdir -p storage/home/admin
+[ -f storage/home/admin/.config.json ] || cp -f user.admin.json storage/home/admin/
 
 node app.js

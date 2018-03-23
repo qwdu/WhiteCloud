@@ -45,7 +45,7 @@ router.post('/', upload_tmp.any(), function(req, res, next){
     //console.log(req.files);
     //console.log('------------------------');
 
-    var tmp_path = './tmp/' + params.name + '.tmpdata';
+    var tmp_path = './storage/tmp/' + params.name + '.tmpdata';
 
     var opt = {flags: 'w'};
     if (params.chunk > 0) opt = {flags: 'a'};
@@ -57,7 +57,7 @@ router.post('/', upload_tmp.any(), function(req, res, next){
                 return ;
             }
   
-            var saveto = 'home/' + req.session.uname + params.savepath + params.name;
+            var saveto = 'storage/' + params.savepath + params.name;
             if (fs.existsSync(saveto)) saveto = saveto + '.' + Date.now();
   
             return fs.rename(tmp_path, saveto)

@@ -1,5 +1,7 @@
 
 var fileapi = {
+    rootdir: '/storage' ,
+
     list: function(path, onlydir, callback) {
         var postData = {method:"file.listdir", params:{path:path, onlydir:onlydir}};
         jpost('/api', postData, callback);
@@ -408,13 +410,15 @@ var fileui = {
         var pathdeli = '&nbsp;&gt;&nbsp;';
         $.each(patharray, function(i, item) {
             if (item != "") {
+                var name = item;
+                if (name == 'home') name = '私人文件夹';
                 var cpath = "";
                 for (var j=0; j<=i; j++) cpath = cpath + patharray[j] + '/';
-                var sss = '<a onclick=\'fileobject.get_files_path("' + cpath + '");\'>' + item + '</a>' + pathdeli;
+                var sss = '<a href="javascript:;" onclick=\'fileobject.get_files_path("' + cpath + '");\'>' + name + '</a>' + pathdeli;
                 $('.curpath').append(sss);
             } else {
                 if (i == 0) {
-                    var sss = '<a onclick=\'fileobject.get_files_path("/");\'>文件管理器</a>' + pathdeli;
+                    var sss = '<a href="javascript:;" onclick=\'fileobject.get_files_path("/");\'>文件管理器</a>' + pathdeli;
                     $('.curpath').append(sss);
                 }
             }
@@ -464,7 +468,7 @@ var fileui = {
         {
             var item    = fileobject.files[index];
             var sizestr = fileutil.format_size(item.size);
-            var namestr = '<a target="_blank" href="/home/'+g_uname+fileutil.myescape(item.path)+'">'+item.name+"</a>";
+            var namestr = '<a target="_blank" href="'+fileutil.myescape(item.path)+'">'+item.name+"</a>";
             if (item.isdir) {
                 sizestr = "-";
                 namestr = '<a href="javascript:;" onclick="fileobject.enter_dir_by_index('+index+');">' + item.name + '</a>';
@@ -493,20 +497,22 @@ var fileui = {
                 foldera1 = '<a href="javascript:;" onclick="fileobject.enter_dir_by_index('+index+');">';
             }
             else {
-                foldera1 = '<a target="_blank" href="/home/'+g_uname+fileutil.myescape(item.path) + '">';
+                foldera1 = '<a target="_blank" href="'+fileapi.rootdir+fileutil.myescape(item.path) + '">';
             }
             var imgsrcname = 'src';
             var imgurl     = fileicon.get_icon(item.name, item.isdir);
             var ext = fileutil.file_ext(item.name);
             if(ext == "jpg" || ext == "png" || ext == "gif") {
                 imgsrcname = 'class="lazy" data-original';
-                imgurl     = '/home/'+g_uname+fileutil.myescape(item.path);
+                imgurl     = fileapi.rootdir + fileutil.myescape(item.path);
             }
+            var show_name = item.name;
+            if (show_name == 'home') show_name = '私人文件夹';
 
             var sss = '<li class="pull-left"  index='+index+' title="'+item.name+'">'+
                 '<div class="imgdiv">'+foldera1+'<img onload="fileui.grid_img_onload(this)" '+imgsrcname+'="'+imgurl+'"/>'+foldera2+ 
                 '<div class="checkbox1" style ="width:18px;height:18px;display:block;position:absolute;left:0px;top:0px;cursor:pointer;"></div></div>'+ 
-                '<div class="filename">' +  item.name + '</div>' +
+                '<div class="filename">' + show_name + '</div>' +
                 '<div class="clearfix"></div>' +
                 '</li>';
 

@@ -45,7 +45,7 @@
 <body> 
 
 <div id="header">
-    <div class="pull-right" style="margin:15px 10px 0 0; cursor:pointer;"><a href="../">返回</a></div>
+    <div class="pull-right" style="margin:15px 10px 0 0; cursor:pointer;"><a href="../"><span class="glyphicon glyphicon-home"></span></a></div>
     <div style="padding:15px 0 10px 10px;" class="curpath">WhiteCloud</div>
     <div class="clearfix"></div>
 </div>
@@ -58,6 +58,9 @@
             <button type="button" class="btn btn-default btn-sm op-delete"><span class="glyphicon glyphicon-trash"></span> 删除</button>
             <button type="button" class="btn btn-default btn-sm op-rename"><span class="glyphicon glyphicon-pencil"></span> 重命名</button>
             <button type="button" class="btn btn-default btn-sm op-move"><span class="glyphicon glyphicon-move"></span> 移动</button>
+        </div>
+        <div class="pull-right">
+            <input type="text" class="form-control" placeholder="搜索" id="searchbox">
         </div>
         <!--
         <div class="btn-group pull-right">
@@ -77,8 +80,8 @@
     </div>
     -->
 
-    <div class="filelistbox">
-        <div class="titleline">
+    <div class="filelistbox hide">
+        <div class="titleline hide">
             <div class="time pull-right"><span>文件时间</span></div>
             <div class="size pull-right"><span>文件大小</span></div>
             <div class="box pull-left"><input type="checkbox"/></div>

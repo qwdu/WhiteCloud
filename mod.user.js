@@ -11,19 +11,18 @@ function hash_password(password)
 
 function login(params, cb)
 {
-    var home_dir = path.join(__dirname, 'home', params.username);
+    var home_dir = path.join(__dirname, 'storage/home', params.username);
     if (!fs.existsSync(home_dir)) {
         cb({result: false, errcode: 2, errmsg: 'not exsit'});
         return ;
     }
 
-    var conf_file = path.join(__dirname, 'home', params.username, '.config.json');
+    var conf_file = path.join(__dirname, 'storage/home', params.username, '.config.json');
     if (!fs.existsSync(conf_file)) {
         var conf = {
             name: params.username,
             level: 'user',
-            key: hash_password(params.password),
-            gallery: ['Gallery']
+            key: hash_password(params.password)
         };
         fs.writeFile(conf_file, JSON.stringify(conf, null, 4), 'utf8', (err) => {
             if (err) console.log("login error", err.toString());
@@ -48,7 +47,7 @@ function create(params, cb)
         return ;
     }
 
-    var home_dir = path.join(__dirname, 'home', params.username);
+    var home_dir = path.join(__dirname, 'storage/home', params.username);
     if (fs.existsSync(home_dir)) {
         cb({result: false, errcode: 2, errmsg: 'already exsit'});
         return ;
@@ -57,8 +56,7 @@ function create(params, cb)
     var conf = {
         name: params.username,
         level: 'user',
-        key: hash_password(params.password),
-        gallery: ['Gallery']
+        key: hash_password(params.password)
     };
 
     return fs.mkdir(home_dir)
@@ -95,13 +93,13 @@ function get_user_info(conf_path)
 
 function list(params, cb)
 {
-    var home_dir = path.join(__dirname, 'home');
+    var home_dir = path.join(__dirname, 'storage/home');
 
     return fs.readdir(home_dir)
     .then( files => {
         var work = [];
         files.forEach(function(name) {
-            let conf_path = path.join(__dirname, 'home', name);
+            let conf_path = path.join(__dirname, 'storage/home', name);
             if (fs.existsSync(conf_path)) {
                 work.push( get_user_info(conf_path) );
             }

@@ -11,6 +11,7 @@
     body {background:url(bg.jpg) no-repeat; background-size:100% 100%; background-attachment:fixed;font-family:"Microsoft Yahei";}
     .xxbox {width:900px; margin:auto;}
     .navitem {float:left; width:200px; height:160px; margin:10px 10px 10px 0; background:#39f; color:#fff; cursor:pointer;}
+    .navitem-da {background:#f5f5f5;}
     .navtext {margin-top:60px; text-align:center; font-size:20px;}
 </style>
 </head>
@@ -26,29 +27,44 @@
     <div class="navitem" url="file/" >
         <div class="navtext">文件管理</div>
     </div>
-    <div class="navitem">
+    <div class="navitem navitem-da">
         <div class="navtext">用户管理</div>
     </div>
-    <div class="navitem">
+    <div class="navitem" url="aria2">
         <div class="navtext">BT下载</div>
     </div>
-    <div class="navitem">
+    <div class="navitem navitem-da">
         <div class="navtext">远程同步</div>
     </div>
-    <div class="navitem">
+    <div class="navitem navitem-da">
         <div class="navtext">联网设置</div>
     </div>
-    <div class="navitem">
+    <div class="navitem navitem-da">
         <div class="navtext">系统配置</div>
     </div>
-    <div class="navitem">
+    <div class="navitem navitem-da">
         <div class="navtext">硬盘配置</div>
+    </div>
+    <div class="navitem" url="logout">
+        <div class="navtext">退出登录</div>
     </div>
 </div>
 
 <script>
 $('.navitem').click(function(){
+    if ($(this).hasClass('navitem-da')) return ;
+
     var url = $(this).attr('url');
+    if (url == 'logout') {
+        logout();
+        return ;
+    }
+
+    if (url == 'aria2') {
+        window.location.href = window.location.protocol + '//' + window.location.host + '/aria2/';
+        return ;
+    }
+
     window.location.href = url;
 });
 </script>

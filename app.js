@@ -22,22 +22,11 @@ app.use(session({
 app.use('/api', require('./api'));
 app.use('/upload', require('./upload'));
 
-app.get('/public/:file(*)', function(req, res, next){
-    var filePath = path.join(__dirname, 'public', req.params.file);
-    res.download(filePath, function (err) {
-        if (!err) return; // file sent
-        if (err && err.status !== 404) return next(err); // non-404 error
-        // file for download not found
-        res.statusCode = 404;
-        res.send('file not exist');
-    });
-});
-
-app.get('/home/:file(*)', function(req, res, next){
+app.get('/storage/:file(*)', function(req, res, next){
 	var ss = req.params.file.split('/');
-	if (ss[0] != req.session.uname) return next();
+	if (ss[1] == 'home' && ss[2] != req.session.uname) return next();
 
-    var filePath = path.join(__dirname, 'home', req.params.file);
+    var filePath = path.join(__dirname, 'storage', req.params.file);
     res.download(filePath, function (err) {
         if (!err) return; // file sent
         if (err && err.status !== 404) return next(err); // non-404 error
